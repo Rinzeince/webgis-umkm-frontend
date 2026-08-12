@@ -10,6 +10,7 @@ lerna-debug.log*
 
 # Node dependencies
 node_modules/
+
 # Production build output
 dist/
 dist-ssr/
@@ -34,3 +35,4 @@ dist-ssr/
 Thumbs.db
 
 
+DESIGN.md
