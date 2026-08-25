@@ -1,8 +1,10 @@
 import axios, { AxiosInstance } from 'axios';
 
+const defaultBaseUrl = import.meta.env.PROD ? '/api/v1' : 'http://127.0.0.1:8000/api/v1';
+
 const axiosClient: AxiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000/api/v1',
-  timeout: 10000,
+  baseURL: import.meta.env.VITE_API_BASE_URL || defaultBaseUrl,
+  timeout: 15000,
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
