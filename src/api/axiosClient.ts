@@ -9,4 +9,17 @@ const axiosClient: AxiosInstance = axios.create({
   },
 });
 
+// Response interceptor to handle Rate Limiting (429) gracefully
+axiosClient.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response && error.response.status === 429) {
+      const customMsg = error.response.data?.message || 'Terlalu banyak permintaan. Silakan tunggu beberapa saat.';
+      console.warn('[API Rate Limit Exceeded]:', customMsg);
+    }
+    return Promise.reject(error);
+  }
+);
+
 export default axiosClient;
+

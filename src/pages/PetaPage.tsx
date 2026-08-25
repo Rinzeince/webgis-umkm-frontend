@@ -12,7 +12,6 @@ import {
   getKategoriUmkm,
   getKecamatanList,
 } from '../api/webgisApi';
-import { KATEGORI_COLORS } from '../utils/clusterColors';
 import {
   HasilCluster,
   Umkm,
