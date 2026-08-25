@@ -177,7 +177,7 @@ const DetailUmkmPage: React.FC = () => {
               <div className="badges-flex">
                 <span className="pill-category-badge">{katName.toUpperCase()}</span>
                 <span className="pill-verified-badge">
-                  <CheckCircle2 size={13} style={{ marginRight: '4px' }} /> Verified SME
+                  <CheckCircle2 size={13} style={{ marginRight: '4px' }} /> UMKM Terverifikasi
                 </span>
               </div>
               <h1 className="detail-store-title">{umkm.nama_umkm}</h1>

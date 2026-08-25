@@ -170,9 +170,11 @@ body,
 .sidebar-body::-webkit-scrollbar {
   width: 5px;
 }
+
 .sidebar-body::-webkit-scrollbar-track {
   background: transparent;
 }
+
 .sidebar-body::-webkit-scrollbar-thumb {
   background: #cbd5e1;
   border-radius: 4px;
@@ -1013,8 +1015,8 @@ path.leaflet-interactive:active {
   }
 
   /* When mobile sidebar is OPEN, hide floating top controls so they never overlap the sidebar header */
-  .peta-sidebar.open ~ .peta-main .floating-top-controls,
-  .sidebar-overlay.active ~ .peta-main .floating-top-controls {
+  .peta-sidebar.open~.peta-main .floating-top-controls,
+  .sidebar-overlay.active~.peta-main .floating-top-controls {
     display: none !important;
   }
 
@@ -1082,6 +1084,12 @@ path.leaflet-interactive:active {
   gap: 4px;
 }
 
+.kec-growth-section {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
 .kec-label-mini {
   font-size: 11px;
   font-weight: 700;
@@ -1093,13 +1101,140 @@ path.leaflet-interactive:active {
   font-size: 14px;
   font-weight: 700;
   margin: 0;
-  line-height: 1.35;
+  line-height: 1.4;
 }
 
 .kec-value-sub {
   font-size: 13px;
   color: #717973;
-  margin: 4px 0 0 0;
+  margin: 8px 0 0 0;
+  line-height: 1.4;
+}
+
+.kec-divider {
+  border: none;
+  border-top: 1px solid #f0f0f0;
+  margin: 14px 0 12px 0;
+}
+
+.kec-sektor-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.kec-sektor-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.kec-label-top {
+  color: #00684a !important;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.kec-label-bottom {
+  color: #dc2626 !important;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.kec-badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.kec-badge-pill {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 11px 4px 5px;
+  border-radius: var(--radius-full);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.kec-badge-pill:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.kec-badge-pill .kec-sektor-icon {
+  flex-shrink: 0;
+  color: inherit;
+}
+
+.kec-badge-pill .badge-name {
+  color: inherit;
+  font-weight: 600;
+}
+
+.kec-badge-pill .badge-rank {
+  font-size: 10px;
+  font-weight: 800;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Top 1 Badge (Emerald green tone) */
+.badge-top1 {
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+
+.badge-top1 .badge-rank {
+  background: #10b981;
+  color: #ffffff;
+}
+
+/* Top 2 Badge (Teal/Emerald soft tone) */
+.badge-top2 {
+  background: #f0fdf4;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+}
+
+.badge-top2 .badge-rank {
+  background: #22c55e;
+  color: #ffffff;
+}
+
+/* Bottom 1 Badge (Rose/Red tone) */
+.badge-bottom1 {
+  background: #fff7ed;
+  color: #fb923c;
+  border: 1px solid #fed7aa;
+}
+
+.badge-bottom1 .badge-rank {
+  background: #f56e41;
+  color: #ffffff;
+}
+
+/* Bottom 2 Badge (Amber/Orange soft tone) */
+.badge-bottom2 {
+  background: #fff1f2;
+  color: #f43f5e;
+  border: 1px solid #fecdd3;
+}
+
+.badge-bottom2 .badge-rank {
+  background: #f43f5e;
+  color: #ffffff;
 }
 
 .sidebar-logo-flex {
@@ -1111,8 +1246,9 @@ path.leaflet-interactive:active {
 .sidebar-icon-circle {
   width: 38px;
   height: 38px;
-  border-radius: 50%;
-  background: #0e382b;
+  border-radius: var(--radius-sm, 8px);
+  background: var(--accent-lime, #80f29d);
+  color: var(--primary, #0e382b);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1171,6 +1307,19 @@ path.leaflet-interactive:active {
   background: #ffffff;
   color: #64748b;
   font-family: var(--font-inter);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  user-select: none;
+}
+
+.pill-cat-btn .cat-pill-icon {
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.pill-cat-btn:hover .cat-pill-icon {
+  transform: scale(1.1);
 }
 
 .pill-cat-btn.active-all {
@@ -1352,8 +1501,8 @@ path.leaflet-interactive:active {
 }
 
 .btn-popup-gmaps {
-  background: #0e382b;
-  color: #ffffff !important;
+  background: var(--accent-lime);
+  color: #0e382b !important;
   border-radius: var(--radius-full);
   padding: 10px 18px;
   font-weight: 700;
@@ -1370,7 +1519,7 @@ path.leaflet-interactive:active {
 }
 
 .btn-popup-gmaps:hover {
-  background: #0b2e1e;
+  background: #01aa5e;
 }
 
 .btn-popup-detail {

@@ -98,9 +98,19 @@
 /* ─── Two Column Layout ─── */
 .detail-main-layout {
   display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 32px;
+  grid-template-columns: minmax(0, 1.85fr) minmax(300px, 1.15fr);
+  gap: 28px;
   align-items: start;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.detail-col-left,
+.detail-col-right {
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .detail-card-white {
@@ -108,8 +118,10 @@
   border-radius: var(--radius-lg);
   padding: 32px;
   box-shadow: 0 10px 30px rgba(14, 56, 43, 0.04);
-  margin-bottom: 32px;
+  margin-bottom: 28px;
   border: 1px solid #f0f0f0;
+  box-sizing: border-box;
+  max-width: 100%;
 }
 
 .card-section-heading {
@@ -140,14 +152,15 @@
 /* Info Two Cols */
 .info-two-cols {
   display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 28px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
 }
 
 .info-sub-item {
   display: flex;
   gap: 14px;
   align-items: flex-start;
+  min-width: 0;
 }
 
 .info-icon-circle {
@@ -175,6 +188,7 @@
   color: var(--text-dark);
   line-height: 1.5;
   margin: 0;
+  word-break: break-word;
 }
 
 .info-value-sub {
@@ -194,7 +208,7 @@
   border-radius: var(--radius-md);
   overflow: hidden;
   background: #eeeeee;
-  min-height: 260px;
+  min-height: 240px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -244,7 +258,7 @@
 /* Around UMKM Grid */
 .around-umkm-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 16px;
   margin-top: 16px;
 }
@@ -259,6 +273,7 @@
   text-decoration: none;
   border: 1px solid #f0f0f0;
   transition: all 0.2s ease;
+  min-width: 0;
 }
 
 .around-card-item:hover {
@@ -282,6 +297,7 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  min-width: 0;
 }
 
 .around-title {
@@ -302,11 +318,13 @@
 .lokasi-navigasi-card {
   background: #0e382b;
   border-radius: var(--radius-lg);
-  padding: 32px 28px;
+  padding: 28px 24px;
   box-shadow: 0 16px 40px rgba(14, 56, 43, 0.15);
   color: #ffffff;
   position: sticky;
-  top: 100px;
+  top: 90px;
+  box-sizing: border-box;
+  max-width: 100%;
 }
 
 .card-section-heading.white h2 {
@@ -315,14 +333,16 @@
 
 .minimap-container-wrap {
   width: 100%;
+  max-width: 100%;
   height: 200px;
   border-radius: var(--radius-md);
   overflow: hidden;
-  margin: 18px 0 20px 0;
+  margin: 16px 0 18px 0;
   border: 2px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
   position: relative;
   z-index: 1;
+  box-sizing: border-box;
 }
 
 .minimap-leaflet {
@@ -334,17 +354,18 @@
 .sidebar-btn-group {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  margin-top: 24px;
+  gap: 12px;
+  margin-top: 20px;
+  width: 100%;
 }
 
 .btn-gmaps-lime {
   background: var(--accent-lime);
   color: #0b2e1e;
-  padding: 14px 24px;
+  padding: 13px 20px;
   border-radius: var(--radius-full);
   font-weight: 700;
-  font-size: 15px;
+  font-size: 14px;
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -354,6 +375,9 @@
   box-shadow: 0 4px 14px rgba(128, 242, 157, 0.3);
   border: none;
   cursor: pointer;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
 }
 
 .btn-gmaps-lime:hover {
@@ -366,16 +390,19 @@
   background: transparent;
   color: #ffffff;
   border: 1.5px solid rgba(255, 255, 255, 0.4);
-  padding: 14px 24px;
+  padding: 13px 20px;
   border-radius: var(--radius-full);
   font-weight: 600;
-  font-size: 15px;
+  font-size: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   transition: all 0.25s ease;
   cursor: pointer;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
 }
 
 .btn-share-outline:hover {
@@ -398,12 +425,14 @@
 }
 
 /* ─── Responsive Media Queries ─── */
-@media (max-width: 992px) {
+/* Smooth Stacked Layout on Tablets, Laptops with DevTools Open, and Screens <= 1120px */
+@media (max-width: 1120px) {
   .detail-main-layout {
     display: flex;
     flex-direction: column;
     width: 100%;
     align-items: stretch;
+    gap: 0;
   }
 
   .detail-col-left,
@@ -435,39 +464,67 @@
     position: static !important;
   }
 
+  .minimap-container-wrap {
+    height: 240px;
+  }
+
+  .detail-header-card {
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
   .info-two-cols {
-    grid-template-columns: 1fr;
-    gap: 18px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
   }
 
   .around-umkm-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   }
+}
 
+@media (max-width: 860px) {
   .detail-header-card {
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
-    width: 100%;
-    box-sizing: border-box;
   }
 
   .btn-back-peta-pill {
     width: 100%;
     justify-content: center;
   }
+
+  .info-two-cols {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 640px) {
   .detail-store-title {
     font-size: 24px;
   }
 
   .detail-card-white,
   .lokasi-navigasi-card {
-    padding: 24px 20px !important;
+    padding: 22px 18px !important;
     border-radius: var(--radius-md) !important;
     width: 100% !important;
     box-sizing: border-box !important;
+    margin-bottom: 20px;
+  }
+
+  .around-umkm-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .store-badge-icon {
+    width: 48px;
+    height: 48px;
   }
 }

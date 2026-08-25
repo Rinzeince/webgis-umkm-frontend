@@ -20,7 +20,7 @@ const LandingFooter: React.FC = () => {
             <h4 className="footer-heading">Tautan Cepat</h4>
             <ul>
               <li><a href="#beranda">Beranda</a></li>
-              <li><a href="#layanan">Tentang Kami</a></li>
+              <li><a href="#layanan">Tentang</a></li>
               <li><Link to="/peta">Peta UMKM</Link></li>
               <li><Link to="/artikel">Artikel</Link></li>
             </ul>
@@ -45,7 +45,7 @@ const LandingFooter: React.FC = () => {
         </div>
 
         <div className="footer-bottom">
-          <p>© 2024 SIGAP UMKM Kabupaten Bandung Barat. Hak Cipta Dilindungi.</p>
+          <p>© 2026 SIGAP UMKM Kabupaten Bandung Barat.</p>
         </div>
       </div>
     </footer>

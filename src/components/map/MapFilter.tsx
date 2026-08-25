@@ -1,4 +1,5 @@
 import React from 'react';
+import { Utensils, Palette, Shirt, Wrench, Store, LayoutGrid } from 'lucide-react';
 import { Kecamatan, KategoriUmkm, ActiveKategoriState } from '../../types/webgis';
 
 interface MapFilterProps {
@@ -46,6 +47,23 @@ const getCategoryPillStyle = (catName: string, isActive: boolean) => {
     color: isActive ? '#475569' : '#94a3b8',
     bg: isActive ? '#f8fafc' : '#ffffff',
   };
+};
+
+const getCategoryIcon = (catName: string) => {
+  const name = catName.toLowerCase();
+  if (name.includes('makanan') || name.includes('kuliner') || name.includes('pangan')) {
+    return <Utensils size={14} className="cat-pill-icon" />;
+  }
+  if (name.includes('kerajinan') || name.includes('craft') || name.includes('kriya')) {
+    return <Palette size={14} className="cat-pill-icon" />;
+  }
+  if (name.includes('fashion') || name.includes('tekstil') || name.includes('pakaian')) {
+    return <Shirt size={14} className="cat-pill-icon" />;
+  }
+  if (name.includes('jasa') || name.includes('layanan')) {
+    return <Wrench size={14} className="cat-pill-icon" />;
+  }
+  return <Store size={14} className="cat-pill-icon" />;
 };
 
 const MapFilter: React.FC<MapFilterProps> = ({
@@ -99,7 +117,8 @@ const MapFilter: React.FC<MapFilterProps> = ({
             className={`pill-cat-btn ${isAllActive ? 'active-all' : ''}`}
             onClick={() => onResetAllCategories && onResetAllCategories()}
           >
-            Semua
+            <LayoutGrid size={14} className="cat-pill-icon" />
+            <span>Semua</span>
           </button>
 
           {kategoriList.map((kat) => {
@@ -119,7 +138,8 @@ const MapFilter: React.FC<MapFilterProps> = ({
                   opacity: isActive ? 1 : 0.6,
                 }}
               >
-                {kat.nama_kategori}
+                {getCategoryIcon(kat.nama_kategori)}
+                <span>{kat.nama_kategori}</span>
               </button>
             );
           })}

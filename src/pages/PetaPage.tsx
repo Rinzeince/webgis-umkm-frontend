@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link, useSearchParams } from 'react-router-dom';
-import { ArrowLeft, MapPin, Layers, Sun, PanelLeftClose, PanelLeftOpen, X, Utensils, Palette, Shirt, Wrench, Store } from 'lucide-react';
+import { ArrowLeft, MapPin, Layers, PanelLeftClose, PanelLeftOpen, X, Utensils, Palette, Shirt, Wrench, Store } from 'lucide-react';
 import WebGisMap from '../components/map/WebGisMap';
 import MapFilter from '../components/map/MapFilter';
 import MapSearchBar from '../components/map/MapSearchBar';
@@ -22,6 +22,24 @@ import {
   FlyToCoords,
   MergedKecamatanProperties,
 } from '../types/webgis';
+
+const getKecSektorIcon = (sektorName?: string | null) => {
+  if (!sektorName) return <Store size={13} className="kec-sektor-icon" />;
+  const name = sektorName.toLowerCase();
+  if (name.includes('makanan') || name.includes('kuliner') || name.includes('pangan')) {
+    return <Utensils size={13} className="kec-sektor-icon" />;
+  }
+  if (name.includes('kerajinan') || name.includes('craft') || name.includes('kriya')) {
+    return <Palette size={13} className="kec-sektor-icon" />;
+  }
+  if (name.includes('fashion') || name.includes('tekstil') || name.includes('pakaian')) {
+    return <Shirt size={13} className="kec-sektor-icon" />;
+  }
+  if (name.includes('jasa') || name.includes('layanan')) {
+    return <Wrench size={13} className="kec-sektor-icon" />;
+  }
+  return <Store size={13} className="kec-sektor-icon" />;
+};
 
 /**
  * PetaPage — Full-screen WebGIS map page with collapsible & responsive sidebar.
@@ -214,7 +232,7 @@ const PetaPage: React.FC = () => {
         <div className="sidebar-header-new">
           <div className="sidebar-logo-flex">
             <div className="sidebar-icon-circle">
-              <MapPin size={20} color="#ffffff" />
+              <MapPin size={20} />
             </div>
             <h2 className="sidebar-brand-title">SIGAP UMKM</h2>
             <button
@@ -266,7 +284,7 @@ const PetaPage: React.FC = () => {
                 {(() => {
                   const totalUmkmKecamatan = umkmList.filter(u => u.kecamatan?.id_kecamatan === selectedKecamatan.id_kecamatan).length;
                   const isPerluValidasi = selectedKecamatan.flag_imputasi === 'PERLU_VALIDASI';
-                  
+
                   const cId = selectedKecamatan.label_cluster;
                   let levelPertumbuhan = 'Wilayah Pertumbuhan UMKM Skala Menengah';
                   let levelColor = '#eab308';
@@ -282,15 +300,80 @@ const PetaPage: React.FC = () => {
                     levelColor = '#e11d48';
                   }
 
+                  const top1 = selectedKecamatan.sektor_top1;
+                  const top2 = selectedKecamatan.sektor_top2;
+                  const bottom1 = selectedKecamatan.sektor_bottom1;
+                  const bottom2 = selectedKecamatan.sektor_bottom2;
+
                   return (
                     <div className="kec-card-body">
-                      <span className="kec-label-mini">KONSENTRASI & PERTUMBUHAN</span>
-                      <p className="kec-value-heading" style={{ color: levelColor }}>
-                        {levelPertumbuhan}
-                      </p>
-                      <p className="kec-value-sub">
-                        Terdapat <strong>{totalUmkmKecamatan} UMKM</strong> terdata di kecamatan ini.
-                      </p>
+                      {/* Sektor Unggulan & Terendah Hasil Klasterisasi (Posisi Atas) */}
+                      {(top1 || top2 || bottom1 || bottom2) && (
+                        <div className="kec-sektor-section">
+                          {/* Sektor Unggulan (Top 1 & Top 2) */}
+                          {(top1 || top2) && (
+                            <div className="kec-sektor-group">
+                              <span className="kec-label-mini kec-label-top">
+                                Sektor Unggulan {selectedKecamatan.nama_kecamatan}
+                              </span>
+                              <div className="kec-badge-row">
+                                {top1 && (
+                                  <span className="kec-badge-pill badge-top1" title="Sektor Unggulan Peringkat 1">
+                                    <span className="badge-rank">1</span>
+                                    {getKecSektorIcon(top1)}
+                                    <span className="badge-name">{top1}</span>
+                                  </span>
+                                )}
+                                {top2 && (
+                                  <span className="kec-badge-pill badge-top2" title="Sektor Unggulan Peringkat 2">
+                                    <span className="badge-rank">2</span>
+                                    {getKecSektorIcon(top2)}
+                                    <span className="badge-name">{top2}</span>
+                                  </span>
+                                )}
+                              </div>
+                            </div>
+                          )}
+
+                          {/* Sektor Terendah (Bottom 3 & Bottom 4) */}
+                          {(bottom1 || bottom2) && (
+                            <div className="kec-sektor-group" style={{ marginTop: '10px' }}>
+                              <span className="kec-label-mini kec-label-bottom">
+                                Sektor Terendah {selectedKecamatan.nama_kecamatan}
+                              </span>
+                              <div className="kec-badge-row">
+                                {bottom1 && (
+                                  <span className="kec-badge-pill badge-bottom1" title="Sektor Terendah Peringkat 3">
+                                    <span className="badge-rank">3</span>
+                                    {getKecSektorIcon(bottom1)}
+                                    <span className="badge-name">{bottom1}</span>
+                                  </span>
+                                )}
+                                {bottom2 && (
+                                  <span className="kec-badge-pill badge-bottom2" title="Sektor Terendah Peringkat 4">
+                                    <span className="badge-rank">4</span>
+                                    {getKecSektorIcon(bottom2)}
+                                    <span className="badge-name">{bottom2}</span>
+                                  </span>
+                                )}
+                              </div>
+                            </div>
+                          )}
+
+                          <hr className="kec-divider" />
+                        </div>
+                      )}
+
+                      {/* Konsentrasi & Pertumbuhan (Posisi Bawah) */}
+                      <div className="kec-growth-section">
+                        <span className="kec-label-mini">KONSENTRASI & PERTUMBUHAN</span>
+                        <p className="kec-value-heading" style={{ color: levelColor }}>
+                          {levelPertumbuhan}
+                        </p>
+                        <p className="kec-value-sub">
+                          Terdapat <strong>{totalUmkmKecamatan} UMKM</strong> terdata di kecamatan ini.
+                        </p>
+                      </div>
                     </div>
                   );
                 })()}
@@ -298,48 +381,7 @@ const PetaPage: React.FC = () => {
             </div>
           )}
 
-          {/* Section 4: UMKM Terpopuler Card */}
-          <div className="sidebar-block">
-            <h4 className="filter-label">UMKM Terpopuler</h4>
-            <div className="sidebar-white-card">
-              {kategoriList.map((kat) => {
-                const katName = kat.nama_kategori;
-                let circleBg = '#f1f5f9';
-                let iconColor = '#64748b';
-                let iconComponent = <Store size={14} />;
-
-                const name = katName.toLowerCase();
-                if (name.includes('makanan') || name.includes('kuliner') || name.includes('pangan')) {
-                  circleBg = '#ffedd5';
-                  iconColor = '#ea580c';
-                  iconComponent = <Utensils size={14} />;
-                } else if (name.includes('kerajinan') || name.includes('craft') || name.includes('kriya')) {
-                  circleBg = '#f3e8ff';
-                  iconColor = '#7e22ce';
-                  iconComponent = <Palette size={14} />;
-                } else if (name.includes('fashion') || name.includes('tekstil') || name.includes('pakaian')) {
-                  circleBg = '#fce7f3';
-                  iconColor = '#db2777';
-                  iconComponent = <Shirt size={14} />;
-                } else if (name.includes('jasa') || name.includes('layanan')) {
-                  circleBg = '#dbeafe';
-                  iconColor = '#2563eb';
-                  iconComponent = <Wrench size={14} />;
-                }
-
-                return (
-                  <div key={kat.id_kategori} className="popular-cat-item">
-                    <div className="popular-icon-circle" style={{ backgroundColor: circleBg, color: iconColor }}>
-                      {iconComponent}
-                    </div>
-                    <span className="popular-cat-name">{katName}</span>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Section 5: Legenda Klaster Card */}
+          {/* Section 4: Legenda Klaster Card */}
           <div className="sidebar-block">
             <MapLegend clusterData={clusterData} />
           </div>
@@ -377,7 +419,7 @@ const PetaPage: React.FC = () => {
 
         {/* Floating Loading Overlay */}
         {loading && (
-          <div 
+          <div
             className="map-loading-overlay"
             style={{
               position: 'absolute',
@@ -399,7 +441,7 @@ const PetaPage: React.FC = () => {
         )}
 
         {/* Floating Weather Widget (Top-Right over Map) */}
-        <div className="weather-widget-floating">
+        {/* <div className="weather-widget-floating">
           <div className="weather-temp-wrap">
             <span className="weather-temp">23°C</span>
             <Sun size={22} className="weather-icon" />
@@ -408,7 +450,7 @@ const PetaPage: React.FC = () => {
             <span>Bandung Barat</span>
             <span className="weather-condition">Cerah</span>
           </div>
-        </div>
+        </div> */}
       </main>
     </div>
   );
