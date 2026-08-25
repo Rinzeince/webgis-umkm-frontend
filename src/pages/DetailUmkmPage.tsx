@@ -23,6 +23,7 @@ import { Umkm } from '../types/webgis';
 import { getKategoriColor, createCustomUmkmIcon } from '../utils/clusterColors';
 import LandingNavbar from '../components/landing/LandingNavbar';
 import LandingFooter from '../components/landing/LandingFooter';
+import { formatImageUrl } from '../utils/imageUrl';
 import '../styles/landing.css';
 import '../styles/detailUmkm.css';
 
@@ -244,7 +245,7 @@ const DetailUmkmPage: React.FC = () => {
               <div className="galeri-box-wrap">
                 {umkm.foto_url ? (
                   <img
-                    src={umkm.foto_url}
+                    src={formatImageUrl(umkm.foto_url)}
                     alt={umkm.nama_umkm}
                     className="galeri-display-img"
                     onError={(e) => {

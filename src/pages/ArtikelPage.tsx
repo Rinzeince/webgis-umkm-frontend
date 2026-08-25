@@ -15,6 +15,7 @@ import '../styles/landing.css';
 
 import LandingNavbar from '../components/landing/LandingNavbar';
 import LandingFooter from '../components/landing/LandingFooter';
+import { formatImageUrl } from '../utils/imageUrl';
 
 interface ArtikelItem {
   id_artikel: number;
@@ -28,13 +29,6 @@ interface ArtikelItem {
   published_at?: string;
   kategori?: string;
 }
-
-const formatImageUrl = (url?: string): string => {
-  if (!url) return '';
-  if (url.startsWith('http://') || url.startsWith('https://')) return url;
-  if (url.startsWith('/storage/')) return `http://127.0.0.1:8000${url}`;
-  return `http://127.0.0.1:8000/storage/${url.replace(/^\/+/, '')}`;
-};
 
 const formatDate = (dateStr?: string) => {
   if (!dateStr) return '12 Okt 2024';

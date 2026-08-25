@@ -10,18 +10,7 @@ import FeaturesSection from '../components/landing/FeaturesSection';
 import MapPreviewSection from '../components/landing/MapPreviewSection';
 import ArticlesSection from '../components/landing/ArticlesSection';
 import LandingFooter from '../components/landing/LandingFooter';
-
-const formatImageUrl = (url?: string): string => {
-  if (!url) return '';
-  let formatted = url.replace(/^http:\/\/(localhost|127\.0\.0\.1)(?!:8000)/, 'http://127.0.0.1:8000');
-  if (formatted.startsWith('http://') || formatted.startsWith('https://')) {
-    return formatted;
-  }
-  if (formatted.startsWith('/storage/')) {
-    return `http://127.0.0.1:8000${formatted}`;
-  }
-  return `http://127.0.0.1:8000/storage/${formatted.replace(/^\/+/, '')}`;
-};
+import { formatImageUrl } from '../utils/imageUrl';
 
 const LandingPage: React.FC = () => {
   const location = useLocation();
