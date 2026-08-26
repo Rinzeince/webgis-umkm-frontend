@@ -101,17 +101,17 @@ const WebGisMap: React.FC<WebGisMapProps> = ({
       zoomControl={false}
       preferCanvas={true}
     >
-      {/* Opsi 1: Esri Light Gray Canvas (Cadangan / Bebas API Key) */}
-      {/* <TileLayer
+      {/* Opsi 1: Esri Light Gray Canvas (Aktif / Bebas API Key) */}
+      <TileLayer
         attribution='Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ'
         url="https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}"
-      /> */}
-
-      {/* Opsi 2: CARTO Light Basemap (Aktif dengan API Key) */}
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
-        url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png?api_key=eyJhbGciOiJIUzI1NiJ9.eyJhIjoiYWNfajEyNXN5cTEiLCJqdGkiOiJmOTllNmM4NiIsImV4cCI6MTgxOTI5NTUyMH0.6SkCRPb29xLr8sThlB0PnmIIbXtu0RHQ5JIpsXvv9Ak"
       />
+
+      {/* Opsi 2: CARTO Light Basemap (Cadangan / Memerlukan API Key) */}
+      {/* <TileLayer
+        attribution='&copy; OpenStreetMap &copy; CARTO'
+        url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png?api_key="
+      /> */}
 
       <ZoomControl position="bottomright" />
 
