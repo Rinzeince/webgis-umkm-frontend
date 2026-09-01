@@ -25,6 +25,8 @@ export interface Umkm {
   foto_url?: string | null;
   kontak?: string | null;
   status_operasional: 'aktif' | 'nonaktif';
+  jam_buka?: string | null;
+  jam_tutup?: string | null;
   jam_operasional?: string | null;
   kecamatan?: {
     id_kecamatan: number;

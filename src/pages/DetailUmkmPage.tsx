@@ -229,7 +229,11 @@ const DetailUmkmPage: React.FC = () => {
                   <div>
                     <span className="info-label-mini">JAM OPERASIONAL</span>
                     <p className="info-value-text font-bold">Buka Setiap Hari</p>
-                    <p className="info-value-sub">08.00 - 17.00 WIB</p>
+                    <p className="info-value-sub">
+                      {umkm.jam_buka && umkm.jam_tutup
+                        ? `${umkm.jam_buka.substring(0, 5)} - ${umkm.jam_tutup.substring(0, 5)} WIB`
+                        : (umkm.jam_operasional || '08.00 - 17.00 WIB')}
+                    </p>
                   </div>
                 </div>
               </div>
