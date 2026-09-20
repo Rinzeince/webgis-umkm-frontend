@@ -21,7 +21,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ statistik }) => {
           
           <div className="hero-content">
             <h1 className="hero-title">
-              Visualisasikan<br/>
+              Visualisasi<br/>
               <span className="text-highlight-lime">Potensi UMKM Lokal</span><br/>
               dengan GIS
             </h1>

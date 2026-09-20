@@ -34,8 +34,8 @@ const FeaturesSection: React.FC = () => {
             <div className="feature-icon-wrapper">
               <ShieldCheck size={20} />
             </div>
-            <h3 className="feature-title">Akurasi Data</h3>
-            <p className="feature-desc">Data lokasi UMKM divalidasi secara berkala melalui survei lapangan dan integrasi data pemerintah daerah.</p>
+            <h3 className="feature-title">Analisis Terstruktur</h3>
+            <p className="feature-desc">Pengelompokan karakteristik wilayah berbasis algoritma Machine Learning untuk mendukung pengambilan keputusan.</p>
           </div>
         </div>
       </div>
